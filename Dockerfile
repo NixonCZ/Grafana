@@ -142,12 +142,4 @@ RUN rm -rf /usr/share/grafana/public/app/plugins/panel/flamegraph
 
 ##################################################################
 
-USER root
-
-## Entrypoint
-COPY entrypoint.sh /entrypoint.sh
-RUN sudo chmod +x /entrypoint.sh
-
 USER grafana
-
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
