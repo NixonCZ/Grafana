@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DOMAIN=grafana.yourdomain.com  # Your domain here
+      - EMAIL=your-email@example.com  # Your email here for Let's Encrypt notifications
+    networks:
+      - grafana-net
+
+  grafana:
+    image: analytiq-grafana # Use your custom built Grafana image
+    container_name: grafana
+    restart: unless-stopped
+    networks:
+      - grafana-net
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=your_admin_password # Be sure to change this!
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+networks:
+  grafana-net:
+    name: grafana-net
+
+volumes:
+  caddy_data:
+  caddy_config:
+  grafana_data:
