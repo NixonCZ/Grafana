@@ -1,0 +1,3 @@
+grafanademo.southeastasia.cloudapp.azure.com {
+    reverse_proxy grafana:3000
+}
